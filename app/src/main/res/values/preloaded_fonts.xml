@@ -3,5 +3,6 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/inknut_antiqua_black</item>
         <item>@font/instrument_sans_medium</item>
+        <item>@font/instrument_sans_semibold</item>
     </array>
 </resources>
