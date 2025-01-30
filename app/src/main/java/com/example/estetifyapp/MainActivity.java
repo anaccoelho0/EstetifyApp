@@ -9,77 +9,54 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.annotation.NonNull;
+import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
 
-    private TextView tvEstetify, tvSobrancelha;
-    private Button locationButton;
-    private GridLayout gridLayout;
-    private ImageButton sobRancelhaButton, maquiagemButton, depilacaoButton, massagemButton;
-    private ImageButton salaButton, barbeiraButton, unhasButton, autocuidadoButton;
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private BottomNavigationView bottomNavigationView;
+    private FirstFragment firstFragment = new FirstFragment();
+    private SecondFragment secondFragment = new SecondFragment();
+    private ThirdFragment thirdFragment = new ThirdFragment();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.menu_person);
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
 
-        // Inicializando os componentes da interface
-        tvEstetify = findViewById(R.id.tv_estetify);
-        tvSobrancelha = findViewById(R.id.tv_sobrancelha);
-        locationButton = findViewById(R.id.locationButton);
-        gridLayout = findViewById(R.id.gridLayout);
+            case R.id.menu_person:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flFragment, firstFragment)
+                        .commit();
+                return true;
 
-        // Inicializando ImageButtons (no grid)
-        sobRancelhaButton = findViewById(R.id.ib_sobrancelha);
-        maquiagemButton = findViewById(R.id.ib_maquiagem);
-        depilacaoButton = findViewById(R.id.ib_depilacao);
-        massagemButton = findViewById(R.id.ib_massagem);
-        salaButton = findViewById(R.id.ib_salao);
-        barbeiraButton = findViewById(R.id.ib_barbearia);
-        unhasButton = findViewById(R.id.ib_unhas);
-        autocuidadoButton = findViewById(R.id.ib_autocuidado);
+            case R.id.home:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flFragment, secondFragment)
+                        .commit();
+                return true;
 
-        // Definindo um comportamento para o botão de localização
-        locationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Adicione aqui a lógica de interação quando o botão for clicado
-                // Pode abrir uma tela de seleção de local, por exemplo
-            }
-        });
-
-        // Configurando eventos de clique para os botões de imagem no GridLayout
-        sobRancelhaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Adicionar funcionalidade específica para este botão
-                // Exemplo: exibir uma nova tela ou alterar algum elemento da UI
-            }
-        });
-
-        maquiagemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Lógica para o botão de maquiagem
-            }
-        });
-
-        // Similar para os outros ImageButtons
-        depilacaoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Lógica para o botão de depilação
-            }
-        });
-
-        massagemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Lógica para o botão de massagem
-            }
-        });
-
-        // Continue configurando os outros botões da mesma forma...
-
+            case R.id.settings:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.flFragment, thirdFragment)
+                        .commit();
+                return true;
+        }
+        return false;
     }
 }
